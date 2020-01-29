@@ -1,1 +1,1 @@
-# Python3 Flask project
+# OpenTelemetry Workshop -- Python
