@@ -2,10 +2,12 @@ from flask import Flask, request
 import requests
 
 from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerSource
 from opentelemetry.sdk.trace.export import ConsoleSpanExporter
+fro
 from opentelemetry.ext.wsgi import OpenTelemetryMiddleware
 import opentelemetry.ext.http_requests
-from opentelemetry.sdk.trace import TracerSource
+
 
 exporter = ConsoleSpanExporter()
 trace.set_preferred_tracer_source_implementation(lambda T: TracerSource())
