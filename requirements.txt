@@ -1,2 +1,6 @@
 Flask
 Requests
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-ext-flask
+opentelemetry-ext-wsgi

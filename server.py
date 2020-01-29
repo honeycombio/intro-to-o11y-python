@@ -1,8 +1,21 @@
-from flask import Flask
-from flask import request
+from flask import Flask, request
 import requests
 
+from opentelemetry import trace
+from opentelemetry.sdk.trace.export import ConsoleSpanExporter
+from opentelemetry.ext.wsgi import OpenTelemetryMiddleware
+import opentelemetry.ext.http_requests
+from opentelemetry.sdk.trace import TracerSource
+
+exporter = ConsoleSpanExporter()
+trace.set_preferred_tracer_source_implementation(lambda T: TracerSource())
+tracer = trace.tracer_source().get_tracer(__name__)
+span_processor = BatchExportSpanProcessor(exporter)
+trace.tracer_source().add_span_processor(span_processor)
+opentelemetry.ext.http_requests.enable(TracerSource())
+
 app = Flask(__name__)
+app.wsgi_app = OpenTelemetryMiddleware(app.wsgi_app)
 
 @app.route("/")
 def root():
@@ -25,4 +38,4 @@ def fibHandler():
   return str(returnValue)
 
 if __name__ == "__main__":
-  app.run()
+  app.run(debug=True)
