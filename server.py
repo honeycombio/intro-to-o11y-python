@@ -24,7 +24,8 @@ instrument_app(app)
 @app.route("/")
 def root():
   with tracer.start_as_current_span('test'):
-    print("hello world")
+    with tracer.start_as_current_span('foo'):
+      print("hello world")
   return "Click [Tools] > [Logs] to see spans!"
 
 @app.route("/fib")
