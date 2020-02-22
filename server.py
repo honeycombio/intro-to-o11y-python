@@ -8,10 +8,16 @@ from opentelemetry.sdk.trace.export import (
   SimpleExportSpanProcessor,
   ConsoleSpanExporter,
 )
+from opentelemetry.ext.jaeger import JaegerSpanExporter
 from opentelemetry.ext.flask import instrument_app
 
 trace.set_preferred_tracer_source_implementation(lambda T: TracerSource())
-trace.tracer_source().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
+exporter = JaegerSpanExporter(
+  service_name="otel-workshop",
+  agent_host_name="35.237.84.236",
+  agent_port=6831,
+)
+trace.tracer_source().add_span_processor(SimpleExportSpanProcessor(exporter))
 
 tracer = trace.get_tracer(__name__)
 
