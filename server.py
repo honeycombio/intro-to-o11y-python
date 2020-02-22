@@ -11,9 +11,9 @@ from opentelemetry.sdk.trace.export import (
 from opentelemetry.ext.flask import instrument_app
 
 trace.set_preferred_tracer_source_implementation(lambda T: TracerSource())
-tracer = trace.get_tracer(__name__)
-
 trace.tracer_source().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
+
+tracer = trace.get_tracer(__name__)
 
 http_requests.enable(trace.tracer_source())
 
@@ -23,6 +23,8 @@ instrument_app(app)
 
 @app.route("/")
 def root():
+  with tracer.start_as_current_span('test'):
+    print("hello world")
   return "Click [Tools] > [Logs] to see spans!"
 
 @app.route("/fib")
