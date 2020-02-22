@@ -1,6 +1,6 @@
 Flask
 Requests
-opentelemetry-api
-opentelemetry-sdk
-opentelemetry-ext-flask
-opentelemetry-ext-wsgi
+opentelemetry-api==0.4a0
+opentelemetry-sdk==0.4a0
+opentelemetry-ext-flask==0.4a0
+opentelemetry-ext-http-requests==0.4a0

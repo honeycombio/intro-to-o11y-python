@@ -2,22 +2,25 @@ from flask import Flask, request
 import requests
 
 from opentelemetry import trace
-from opentelemetry.sdk.trace import TracerSource
-from opentelemetry.sdk.trace.export import ConsoleSpanExporter
-fro
-from opentelemetry.ext.wsgi import OpenTelemetryMiddleware
-import opentelemetry.ext.http_requests
-
+from opentelemetry.ext import http_requests
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import (
+  BatchExportSpanProcessor,
+  ConsoleSpanExporter,
+)
+from opentelemetry.ext.flask import instrument_app
 
 exporter = ConsoleSpanExporter()
-trace.set_preferred_tracer_source_implementation(lambda T: TracerSource())
-tracer = trace.tracer_source().get_tracer(__name__)
+trace.set_preferred_tracer_source_implementation(lambda T: TracerProvider())
+tracer = trace.get_tracer(__name__)
+
 span_processor = BatchExportSpanProcessor(exporter)
-trace.tracer_source().add_span_processor(span_processor)
-opentelemetry.ext.http_requests.enable(TracerSource())
+trace.tracer_provider().add_span_processor(span_processor)
+
+http_requests.enable(trace.tracer_provider())
 
 app = Flask(__name__)
-app.wsgi_app = OpenTelemetryMiddleware(app.wsgi_app)
+instrument_app(app)
 
 @app.route("/")
 def root():
