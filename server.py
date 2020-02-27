@@ -6,6 +6,7 @@ from opentelemetry.ext import http_requests
 from opentelemetry.sdk.trace import TracerSource
 from opentelemetry.sdk.trace.export import (
   SimpleExportSpanProcessor,
+  BatchExportSpanProcessor,
   ConsoleSpanExporter,
 )
 from opentelemetry.ext.lightstep import LightStepSpanExporter
@@ -24,7 +25,8 @@ exporter = JaegerSpanExporter(
   agent_host_name="35.237.84.236",
   agent_port=6831,
 )
-trace.tracer_source().add_span_processor(SimpleExportSpanProcessor(lsExporter))
+
+trace.tracer_source().add_span_processor(BatchExportSpanProcessor(lsExporter))
 
 tracer = trace.get_tracer(__name__)
 
