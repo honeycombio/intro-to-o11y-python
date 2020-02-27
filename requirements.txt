@@ -5,3 +5,4 @@ opentelemetry-sdk==0.4a0
 opentelemetry-ext-jaeger==0.4a0
 opentelemetry-ext-flask==0.4a0
 opentelemetry-ext-http-requests==0.4a0
+opentelemetry-ext-lightstep
