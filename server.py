@@ -1,5 +1,6 @@
 from flask import Flask, request
 import requests
+import os
 
 from opentelemetry import trace
 from opentelemetry.ext import http_requests
@@ -17,7 +18,7 @@ trace.set_preferred_tracer_source_implementation(lambda T: TracerSource())
 
 lsExporter = LightStepSpanExporter(
   name="otel-workshop",
-  token="du/9Cv+uCOMKItR/vpHm+J/K8E81ZVPq3pTSGbZ4qR228DibbQ4WIYkhP4mF/F/E4BscrddJnev+pT+lyhY="
+  token=os.environ['LS_KEY']
 )
 
 exporter = JaegerSpanExporter(
@@ -53,9 +54,11 @@ def fibHandler():
   else:
     minusOnePayload = {'i': value - 1}
     minusTwoPayload = {'i': value - 2 }
-    with tracer.start_as_current_span("get_minus_one"):
+    with tracer.start_as_current_span("get_minus_one") as span:
+      span.set_attribute("payloadValue", value-1)
       respOne = requests.get('http://127.0.0.1:5000/fibInternal', minusOnePayload)
-    with tracer.start_as_current_span("get_minus_two"):
+    with tracer.start_as_current_span("get_minus_two") as span:
+      span.set_attribute("payloadValue", value-2)
       respTwo = requests.get('http://127.0.0.1:5000/fibInternal', minusTwoPayload)
     returnValue = int(respOne.content) + int(respTwo.content)
   return str(returnValue)
