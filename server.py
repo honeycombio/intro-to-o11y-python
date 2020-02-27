@@ -47,7 +47,7 @@ def root():
 def fibHandler():
   value = int(request.args.get('i'))
   returnValue = 0
-  if value == 1:
+  if value == 1 or value == 0:
     returnValue = 0
   elif value == 2:
     returnValue = 1
