@@ -51,10 +51,9 @@ def fibHandler():
     minusTwoPayload = {'i': value - 2 }
     with tracer.start_as_current_span("get_minus_one"):
       respOne = requests.get('http://127.0.0.1:5000/fibInternal', minusOnePayload)
-    returnValue += int(respOne.content)
     with tracer.start_as_current_span("get_minus_two"):
       respTwo = requests.get('http://127.0.0.1:5000/fibInternal', minusTwoPayload)
-    returnValue += int(respTwo.content)
+    returnValue = int(respOne.content) + int(respTwo.content)
   return str(returnValue)
 
 if __name__ == "__main__":
