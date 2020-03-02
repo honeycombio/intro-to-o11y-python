@@ -29,7 +29,8 @@ exporter = JaegerSpanExporter(
   agent_port=6831,
 )
 
-trace.tracer_source().add_span_processor(BatchExportSpanProcessor(lsExporter))
+trace.tracer_source().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
+#trace.tracer_source().add_span_processor(BatchExportSpanProcessor(lsExporter))
 
 tracer = trace.get_tracer(__name__)
 
