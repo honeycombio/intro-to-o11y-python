@@ -2,7 +2,9 @@ from flask import Flask, request
 import requests
 import os
 
-from opentelemetry import trace
+from opentelemetry import (
+  trace
+)
 from opentelemetry.ext import http_requests
 from opentelemetry.sdk.trace import TracerSource
 from opentelemetry.sdk.trace.export import (
