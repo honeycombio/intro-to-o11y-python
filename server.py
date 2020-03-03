@@ -1,6 +1,7 @@
 from flask import Flask, request
 import requests
 import os
+import sys
 
 from opentelemetry import (
   trace
@@ -18,13 +19,15 @@ from opentelemetry.ext.flask import instrument_app
 
 trace.set_preferred_tracer_source_implementation(lambda T: TracerSource())
 
+serviceName = os.environ['PROJECT_NAME']
+
 lsExporter = LightStepSpanExporter(
-  name="otel-workshop",
+  name=serviceName,
   token=os.environ['LS_KEY']
 )
 
 exporter = JaegerSpanExporter(
-  service_name="otel-workshop",
+  service_name=serviceName,
   agent_host_name="35.237.84.236",
   agent_port=6831,
 )
@@ -42,6 +45,7 @@ instrument_app(app)
 
 @app.route("/")
 def root():
+  sys.stdout.write('\n')
   return "Click [Tools] > [Logs] to see spans!"
 
 
@@ -64,6 +68,7 @@ def fibHandler():
       span.set_attribute("payloadValue", value-2)
       respTwo = requests.get('http://127.0.0.1:5000/fibInternal', minusTwoPayload)
     returnValue = int(respOne.content) + int(respTwo.content)
+  sys.stdout.write('\n')
   return str(returnValue)
 
 if __name__ == "__main__":
