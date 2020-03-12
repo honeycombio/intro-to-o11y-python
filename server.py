@@ -14,6 +14,7 @@ from opentelemetry.sdk.trace.export import (
   ConsoleSpanExporter,
 )
 from opentelemetry.ext.lightstep import LightStepSpanExporter
+from opentelemetry.ext.honeycomb import HoneycombSpanExporter
 from opentelemetry.ext.jaeger import JaegerSpanExporter
 from opentelemetry.ext.flask import instrument_app
 
