@@ -6,4 +6,4 @@ opentelemetry-ext-jaeger==0.4a0
 opentelemetry-ext-flask==0.4a0
 opentelemetry-ext-http-requests==0.4a0
 opentelemetry-ext-lightstep
-opentelemetry-ext-honeycomb==0.4a5
+opentelemetry-ext-honeycomb==0.4a6
