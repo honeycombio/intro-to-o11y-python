@@ -28,7 +28,7 @@ lsExporter = LightStepSpanExporter(
 )
 
 hnyExporter = HoneycombSpanExporter(
-	service_name="test-service",
+	service_name=serviceName,
 	writekey=os.environ['HNY_KEY'],
 	dataset="opentelemetry",
 )
@@ -39,7 +39,7 @@ exporter = JaegerSpanExporter(
   agent_port=6831,
 )
 
-#trace.tracer_source().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
+trace.tracer_source().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
 trace.tracer_source().add_span_processor(BatchExportSpanProcessor(lsExporter))
 trace.tracer_source().add_span_processor(BatchExportSpanProcessor(hnyExporter))
 
