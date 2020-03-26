@@ -18,7 +18,7 @@ from opentelemetry.ext.honeycomb import HoneycombSpanExporter
 from opentelemetry.ext.jaeger import JaegerSpanExporter
 from opentelemetry.ext.flask import instrument_app
 
-trace.set_tracer_provider(lambda T: TracerProvider())
+trace.set_tracer_provider(TracerProvider())
 
 serviceName = os.environ['PROJECT_NAME']
 
