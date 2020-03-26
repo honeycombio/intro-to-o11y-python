@@ -7,7 +7,7 @@ from opentelemetry import (
   trace
 )
 from opentelemetry.ext import http_requests
-from opentelemetry.sdk.trace import TracerSource
+from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import (
   SimpleExportSpanProcessor,
   BatchExportSpanProcessor,
@@ -18,7 +18,7 @@ from opentelemetry.ext.honeycomb import HoneycombSpanExporter
 from opentelemetry.ext.jaeger import JaegerSpanExporter
 from opentelemetry.ext.flask import instrument_app
 
-trace.set_preferred_tracer_source_implementation(lambda T: TracerSource())
+trace.set_tracer_provider(lambda T: TracerProvider())
 
 serviceName = os.environ['PROJECT_NAME']
 
@@ -39,13 +39,13 @@ exporter = JaegerSpanExporter(
   agent_port=6831,
 )
 
-# trace.tracer_source().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
-trace.tracer_source().add_span_processor(BatchExportSpanProcessor(lsExporter))
-trace.tracer_source().add_span_processor(BatchExportSpanProcessor(hnyExporter))
+# trace.get_tracer_provider().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
+trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(lsExporter))
+trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(hnyExporter))
 
 tracer = trace.get_tracer(__name__)
 
-http_requests.enable(trace.tracer_source())
+http_requests.enable(trace.get_tracer_provider())
 
 app = Flask(__name__)
 instrument_app(app)
