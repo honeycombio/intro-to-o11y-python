@@ -35,13 +35,14 @@ hnyExporter = HoneycombSpanExporter(
 
 exporter = JaegerSpanExporter(
   service_name=serviceName,
-  agent_host_name="35.237.84.236",
+  agent_host_name="104.196.134.87",
   agent_port=6831,
 )
 
+trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(exporter))
 # trace.get_tracer_provider().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
-trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(lsExporter))
-trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(hnyExporter))
+# trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(lsExporter))
+# trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(hnyExporter))
 
 tracer = trace.get_tracer(__name__)
 
