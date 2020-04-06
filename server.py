@@ -71,7 +71,7 @@ def fibHandler():
     returnValue = 1
   else:
     minusOnePayload = {'i': value - 1}
-    minusTwoPayload = {'i': value - 2 }
+    minusTwoPayload = {'i': value - 2}
     with tracer.start_as_current_span("get_minus_one") as span:
       span.set_attribute("payloadValue", value-1)
       respOne = requests.get('http://127.0.0.1:5000/fibInternal', minusOnePayload)
