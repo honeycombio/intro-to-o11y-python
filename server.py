@@ -38,7 +38,7 @@ hnyExporter = HoneycombSpanExporter(
 
 exporter = JaegerSpanExporter(
   service_name=serviceName,
-  agent_host_name="104.196.134.87",
+  agent_host_name=os.environ['JAEGER_HOST'],
   agent_port=6831,
 )
 

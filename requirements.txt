@@ -5,5 +5,6 @@ opentelemetry-sdk==0.6b0
 opentelemetry-ext-jaeger==0.6b0
 opentelemetry-ext-flask==0.6b0
 opentelemetry-ext-http-requests==0.6b0
+opentelemetry-auto-instrumentation==0.6b0
 opentelemetry-ext-lightstep==0.6b0
 opentelemetry-ext-honeycomb==0.5b0
