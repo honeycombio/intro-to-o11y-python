@@ -1,7 +1,3 @@
-from flask import Flask, request
-import requests
-import os
-import sys
 
 from opentelemetry import (
   trace
@@ -16,7 +12,14 @@ from opentelemetry.sdk.trace.export import (
 from opentelemetry.ext.lightstep import LightStepSpanExporter
 from opentelemetry.ext.honeycomb import HoneycombSpanExporter
 from opentelemetry.ext.jaeger import JaegerSpanExporter
-from opentelemetry.ext.flask import instrument_app
+from opentelemetry.ext.flask import FlaskInstrumentor
+
+FlaskInstrumentor().instrument()
+
+from flask import Flask, request
+import requests
+import os
+import sys
 
 trace.set_tracer_provider(TracerProvider())
 
@@ -49,7 +52,6 @@ tracer = trace.get_tracer(__name__)
 http_requests.enable(trace.get_tracer_provider())
 
 app = Flask(__name__)
-instrument_app(app)
 
 
 @app.route("/")

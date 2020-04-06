@@ -1,9 +1,9 @@
 Flask
 Requests
-opentelemetry-api==0.5b0
-opentelemetry-sdk==0.5b0
-opentelemetry-ext-jaeger==0.5b0
-opentelemetry-ext-flask==0.5b0
-opentelemetry-ext-http-requests==0.5b0
-opentelemetry-ext-lightstep
-opentelemetry-ext-honeycomb==0.4a7
+opentelemetry-api==0.6b0
+opentelemetry-sdk==0.6b0
+opentelemetry-ext-jaeger==0.6b0
+opentelemetry-ext-flask==0.6b0
+opentelemetry-ext-http-requests==0.6b0
+opentelemetry-ext-lightstep==0.6b0
+opentelemetry-ext-honeycomb==0.5b0
