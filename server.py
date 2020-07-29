@@ -43,7 +43,7 @@ exporter = JaegerSpanExporter(
 )
 
 trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(exporter))
-# trace.get_tracer_provider().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
+trace.get_tracer_provider().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
 # trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(lsExporter))
 trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(hnyExporter))
 
@@ -64,6 +64,8 @@ def root():
 @app.route("/fibInternal")
 def fibHandler():
   value = int(request.args.get('i'))
+  current_span = tracer.get_current_span()
+  current_span.set_attribute("request", value)
   returnValue = 0
   if value == 1 or value == 0:
     returnValue = 0
