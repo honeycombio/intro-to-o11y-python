@@ -2,7 +2,7 @@
 from opentelemetry import (
   trace
 )
-from opentelemetry.ext.requests import RequestsInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import (
   SimpleExportSpanProcessor,
@@ -11,8 +11,8 @@ from opentelemetry.sdk.trace.export import (
 )
 from opentelemetry.ext.lightstep import LightStepSpanExporter
 from opentelemetry.ext.honeycomb import HoneycombSpanExporter
-from opentelemetry.ext.jaeger import JaegerSpanExporter
-from opentelemetry.ext.flask import FlaskInstrumentor
+from opentelemetry.exporter.jaeger import JaegerSpanExporter
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
 
 FlaskInstrumentor().instrument()
 

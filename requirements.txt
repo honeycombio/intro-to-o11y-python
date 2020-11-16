@@ -3,9 +3,9 @@ Requests==2.25.0
 six==1.15.0
 opentelemetry-api==0.15b0
 opentelemetry-sdk==0.15b0
-opentelemetry-ext-jaeger==0.6b0
-opentelemetry-ext-flask==0.6b0
-opentelemetry-ext-requests==0.11b0
+opentelemetry-exporter-jaeger==0.15b0
+opentelemetry-instrumentation-flask==0.15b0
+opentelemetry-instrumentation-requests==0.15b0
 opentelemetry-auto-instrumentation==0.8b0
 opentelemetry-ext-lightstep==0.6b0
 opentelemetry-honeycomb==0.15b0
