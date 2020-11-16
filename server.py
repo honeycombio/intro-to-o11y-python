@@ -64,7 +64,7 @@ def root():
 @app.route("/fibInternal")
 def fibHandler():
   value = int(request.args.get('i'))
-  current_span = tracer.get_current_span()
+  current_span = trace.get_current_span()
   current_span.set_attribute("request", value)
   returnValue = 0
   if value == 1 or value == 0:
@@ -85,4 +85,4 @@ def fibHandler():
   return str(returnValue)
 
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(debug=True)t
