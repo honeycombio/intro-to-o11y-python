@@ -53,7 +53,6 @@ RequestsInstrumentor().instrument(tracer_provider=trace.get_tracer_provider())
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def root():
   sys.stdout.write('\n')
@@ -65,6 +64,9 @@ def root():
 def fibHandler():
   value = int(request.args.get('i'))
   # TODO fix missing root span b/c of w3c header
+  # python equivalent of: othttp.WithSpanOptions(trace.WithNewRoot())
+  # or: othttp.NewHandler(othttp.WithPublicEndpoint())
+  # from workshop template slide 64
   current_span = trace.get_current_span()
   current_span.set_attribute("request", value)
   returnValue = 0
