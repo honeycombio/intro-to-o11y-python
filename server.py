@@ -64,6 +64,7 @@ def root():
 @app.route("/fibInternal")
 def fibHandler():
   value = int(request.args.get('i'))
+  # TODO fix missing root span b/c of w3c header
   current_span = trace.get_current_span()
   current_span.set_attribute("request", value)
   returnValue = 0
