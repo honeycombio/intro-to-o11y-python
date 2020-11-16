@@ -6,6 +6,6 @@ opentelemetry-sdk==0.15b0
 opentelemetry-exporter-jaeger==0.15b0
 opentelemetry-instrumentation-flask==0.15b0
 opentelemetry-instrumentation-requests==0.15b0
-opentelemetry-auto-instrumentation==0.8b0
-opentelemetry-ext-lightstep==0.6b0
+opentelemetry-instrumentation==0.15b0
+opentelemetry-launcher==0.15b0
 opentelemetry-ext-honeycomb==0.15b1
