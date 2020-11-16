@@ -2,7 +2,7 @@
 from opentelemetry import (
   trace
 )
-from opentelemetry.ext import http_requests
+from opentelemetry.ext.requests import RequestsInstrumentor
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import (
   SimpleExportSpanProcessor,
@@ -49,7 +49,7 @@ trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(hnyExpor
 
 tracer = trace.get_tracer(__name__)
 
-http_requests.enable(trace.get_tracer_provider())
+RequestsInstrumentor().instrument(tracer_provider=trace.get_tracer_provider())
 
 app = Flask(__name__)
 
