@@ -1,18 +1,20 @@
-
 from opentelemetry import (
   trace
 )
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import (
-  SimpleExportSpanProcessor,
-  BatchExportSpanProcessor,
+  SimpleSpanProcessor,
+  BatchSpanProcessor,
   ConsoleSpanExporter,
 )
-from opentelemetry.ext.lightstep import LightStepSpanExporter
-from opentelemetry.ext.honeycomb import HoneycombSpanExporter
-from opentelemetry.exporter.jaeger import JaegerSpanExporter
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
+    OTLPSpanExporter,
+)
+from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from grpc import ssl_channel_credentials
 
 FlaskInstrumentor().instrument()
 
@@ -21,31 +23,39 @@ import requests
 import os
 import sys
 
-trace.set_tracer_provider(TracerProvider())
+resource = Resource(attributes={
+    "service.name": "my-service"
+})
 
-serviceName = os.environ['PROJECT_NAME']
+trace.set_tracer_provider(TracerProvider(resource=resource))
 
-lsExporter = LightStepSpanExporter(
-  name=serviceName,
-  token=os.environ['LS_KEY']
+lsExporter = OTLPSpanExporter(
+	endpoint="ingest.lightstep.com:443",
+	insecure=False,
+	credentials=ssl_channel_credentials(),
+	headers=(
+		("lightstep-access-token", os.environ.get("LS_KEY"))
+))
+
+hnyExporter = OTLPSpanExporter(
+	endpoint="api.honeycomb.io:443",
+	insecure=False,
+	credentials=ssl_channel_credentials(),
+	headers=(
+		("x-honeycomb-team", os.environ.get("HNY_KEY")),
+		("x-honeycomb-dataset", "opentelemetry")
+	)
 )
 
-hnyExporter = HoneycombSpanExporter(
-	service_name=serviceName,
-	writekey=os.environ['HNY_KEY'],
-	dataset="opentelemetry",
-)
-
-exporter = JaegerSpanExporter(
-  service_name=serviceName,
+exporter = JaegerExporter(
   agent_host_name=os.environ['JAEGER_HOST'],
   agent_port=6831,
 )
 
-trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(exporter))
-trace.get_tracer_provider().add_span_processor(SimpleExportSpanProcessor(ConsoleSpanExporter()))
-# trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(lsExporter))
-trace.get_tracer_provider().add_span_processor(BatchExportSpanProcessor(hnyExporter))
+trace.get_tracer_provider().add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
+trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(exporter))
+trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(lsExporter))
+trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(hnyExporter))
 
 tracer = trace.get_tracer(__name__)
 
