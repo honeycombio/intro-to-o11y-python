@@ -54,7 +54,7 @@ exporter = JaegerExporter(
 
 trace.get_tracer_provider().add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
 trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(exporter))
-trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(lsExporter))
+# trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(lsExporter))
 trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(hnyExporter))
 
 tracer = trace.get_tracer(__name__)
