@@ -78,7 +78,7 @@ def fibHandler():
   # or: othttp.NewHandler(othttp.WithPublicEndpoint())
   # from workshop template slide 64
   current_span = trace.get_current_span()
-  current_span.set_attribute("request", value)
+  current_span.set_attribute("parameter", value)
   returnValue = 0
   if value == 1 or value == 0:
     returnValue = 0
