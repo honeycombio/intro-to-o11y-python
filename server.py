@@ -24,7 +24,7 @@ import os
 import sys
 
 resource = Resource(attributes={
-    "service.name": "my-service"
+    "service_name": "my-service"
 })
 
 trace.set_tracer_provider(TracerProvider(resource=resource))
