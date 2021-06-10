@@ -29,13 +29,13 @@ resource = Resource(attributes={
 
 trace.set_tracer_provider(TracerProvider(resource=resource))
 
-lsExporter = OTLPSpanExporter(
-	endpoint="ingest.lightstep.com:443",
-	insecure=False,
-	credentials=ssl_channel_credentials(),
-	headers=(
-		("lightstep-access-token", os.environ.get("LS_KEY"))
-))
+# lsExporter = OTLPSpanExporter(
+# 	endpoint="ingest.lightstep.com:443",
+# 	insecure=False,
+# 	credentials=ssl_channel_credentials(),
+# 	headers=(
+# 		("lightstep-access-token", os.environ.get("LS_KEY"))
+# ))
 
 hnyExporter = OTLPSpanExporter(
 	endpoint="api.honeycomb.io:443",
@@ -47,13 +47,13 @@ hnyExporter = OTLPSpanExporter(
 	)
 )
 
-exporter = JaegerExporter(
-  agent_host_name=os.environ['JAEGER_HOST'],
-  agent_port=6831,
-)
+# exporter = JaegerExporter(
+#   agent_host_name=os.environ['JAEGER_HOST'],
+#   agent_port=6831,
+# )
 
 trace.get_tracer_provider().add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
-trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(exporter))
+# trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(exporter))
 # trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(lsExporter))
 trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(hnyExporter))
 
