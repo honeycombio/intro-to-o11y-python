@@ -10,46 +10,7 @@ Remix this app on Glitch.
 
 ### 1. Autoinstrument!
 
-This will make tracing happen in the Spring app with no code changes!
-You'll see the web requests coming in. They'll even nest inside each other when the service calls itself. You will not
-see anything specific to this app, like the query parameter on the request.
-
-This magic happens through [instrumentation](https://docs.oracle.com/en/java/javase/11/docs/api/java.instrument/java/lang/instrument/Instrumentation.html) by a Java agent.
-The agent gloms onto your Java app, recognizes Spring receiving HTTP requests, and emits events.
-
-There's a general OpenTelemetry Java agent, and [Honeycomb wraps it into a version]
-https://github.com/honeycombio/honeycomb-opentelemetry-java#agent-usage) that's easier to configure. we'll use that one.
-
-#### Get the agent
-
-Download the agent jar [from this direct link](https://github.com/honeycombio/honeycomb-opentelemetry-java/releases/download/v0.4.0/honeycomb-opentelemetry-javaagent-0.4.0-all.jar).
-In Glitch, click Tools, the Command Line, and then do this:
-
-`wget https://github.com/honeycombio/honeycomb-opentelemetry-java/releases/download/v0.4.0/honeycomb-opentelemetry-javaagent-0.4.0-all.jar`
-
-`sync` (this tells glitch to notice what you did at the command line)
-
-#### Attach the agent
-
-The goal is to add a JVM argument: `-javaagent:honeycomb-opentelemetry-javaagent-0.4.0-all.jar`
-
-To add this to `mvn spring-boot:run`,
-open `pom.xml`, find the `plugin` block for `spring-boot-maven-plugin`, and 
-add a `configuration` block like the one here:
-
-```xml
- <plugin>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
-    <configuration>
-        <agents>
-            <agent>
-                honeycomb-opentelemetry-javaagent-0.4.0-all.jar
-            </agent>
-        </agents>
-    </configuration>
-</plugin>
-```
+...
 
 #### Configure the Agent
 
@@ -59,7 +20,7 @@ environment variables:
 
 ```
 HONEYCOMB_API_KEY=replace-this-with-a-real-api-key
-HONEYCOMB_DATASET=otel-java
+HONEYCOMB_DATASET=otel-python
 SERVICE_NAME=fibonacci-microservice
 SAMPLE_RATE=1
 ```
@@ -92,31 +53,7 @@ Let's make it easier to see what the "index" query parameter is.
 
 To do this, change the code using the OpenTelemetry API.
 
-### Bring in the OpenTelemetry API
-
-Add these dependencies to add to `pom.xml`.
-
-```xml
-    <dependency>
-        <groupId>io.opentelemetry</groupId>
-        <artifactId>opentelemetry-api</artifactId>
-        <version>1.5.0</version>
-    </dependency>
-    <dependency>
-        <groupId>io.opentelemetry</groupId>
-        <artifactId>opentelemetry-extension-annotations</artifactId>
-        <version>1.5.0</version>
-    </dependency>
-```
-
-### Use the API in your code
-
-Now in `FibonacciController.java`, in the `getFibonacciNumber` method, add the index parameter to the current Span:
-
-```java
-  Span span = Span.current();
-  span.setAttribute("parameter.index", i);
-```
+...
 
 Restart the app, make the sequence go, and find that field on the new spans.
 
@@ -127,17 +64,7 @@ Can you make the trace waterfall view show the index? What pattern does it show?
 Make the calculation into its own span, to see how much of the time spent on
 this service is the meat: adding the fibonacci numbers.
 
-Break out a method for creating the returned Fibonacci number, and add the
-magical `@WithSpan` attribute.
-
-Something like:
-
-```java
-  @WithSpan
-  private FibonacciNumber calculate(int index, FibonacciNumber previous, FibonacciNumber oneBeforeThat) {
-    return new FibonacciNumber(index, previous.fibonacciNumber + oneBeforeThat.fibonacciNumber);
-  }
-```
+...
 
 After a restart, do your traces show this extra span? Do you see the name of your method?
 What percentage of the service time is spend in it?
