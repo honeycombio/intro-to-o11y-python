@@ -19,42 +19,28 @@ from grpc import ssl_channel_credentials
 FlaskInstrumentor().instrument()
 
 from flask import Flask, request
+from flask import render_template
 import requests
 import os
 import sys
 
 resource = Resource(attributes={
-    "service_name": "my-service"
+    "service_name": os.getenv("SERVICE_NAME", "fibonacci-microservice")
 })
 
 trace.set_tracer_provider(TracerProvider(resource=resource))
-
-# lsExporter = OTLPSpanExporter(
-# 	endpoint="ingest.lightstep.com:443",
-# 	insecure=False,
-# 	credentials=ssl_channel_credentials(),
-# 	headers=(
-# 		("lightstep-access-token", os.environ.get("LS_KEY"))
-# ))
 
 hnyExporter = OTLPSpanExporter(
 	endpoint="api.honeycomb.io:443",
 	insecure=False,
 	credentials=ssl_channel_credentials(),
 	headers=(
-		("x-honeycomb-team", os.environ.get("HNY_KEY")),
-		("x-honeycomb-dataset", "opentelemetry")
+		("x-honeycomb-team", os.environ.get("HONEYCOMB_API_KEY")),
+		("x-honeycomb-dataset", os.getenv("HONEYCOMB_DATASET", "otel-python"))
 	)
 )
 
-# exporter = JaegerExporter(
-#   agent_host_name=os.environ['JAEGER_HOST'],
-#   agent_port=6831,
-# )
-
 trace.get_tracer_provider().add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
-# trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(exporter))
-# trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(lsExporter))
 trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(hnyExporter))
 
 tracer = trace.get_tracer(__name__)
@@ -65,14 +51,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def root():
-  sys.stdout.write('\n')
-  return "Click [Tools] > [Logs] to see spans!"
+  return render_template("index.html")
 
 
 @app.route("/fib")
-@app.route("/fibInternal")
 def fibHandler():
-  value = int(request.args.get('i'))
+  value = int(request.args.get('index'))
   # TODO fix missing root span b/c of w3c header
   # python equivalent of: othttp.WithSpanOptions(trace.WithNewRoot())
   # or: othttp.NewHandler(othttp.WithPublicEndpoint())
@@ -85,14 +69,14 @@ def fibHandler():
   elif value == 2:
     returnValue = 1
   else:
-    minusOnePayload = {'i': value - 1}
-    minusTwoPayload = {'i': value - 2}
+    minusOnePayload = {'index': value - 1}
+    minusTwoPayload = {'index': value - 2}
     with tracer.start_as_current_span("get_minus_one") as span:
       span.set_attribute("payloadValue", value-1)
-      respOne = requests.get('http://127.0.0.1:5000/fibInternal', minusOnePayload)
+      respOne = requests.get('http://127.0.0.1:5000/fib', minusOnePayload)
     with tracer.start_as_current_span("get_minus_two") as span:
       span.set_attribute("payloadValue", value-2)
-      respTwo = requests.get('http://127.0.0.1:5000/fibInternal', minusTwoPayload)
+      respTwo = requests.get('http://127.0.0.1:5000/fib', minusTwoPayload)
     returnValue = int(respOne.content) + int(respTwo.content)
   sys.stdout.write('\n')
   return str(returnValue)
