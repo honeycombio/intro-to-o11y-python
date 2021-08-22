@@ -13,7 +13,6 @@
     "restart": {
       "include": [
         "\\.py$",
-        "^start\\.sh"
       ]
     },
     "throttle": 1000
