@@ -64,9 +64,9 @@ def fibHandler():
   current_span = trace.get_current_span()
   current_span.set_attribute("parameter", value)
   returnValue = 0
-  if value == 1 or value == 0:
+  if value == 0:
     returnValue = 0
-  elif value == 2:
+  elif value == 1:
     returnValue = 1
   else:
     minusOnePayload = {'index': value - 1}
