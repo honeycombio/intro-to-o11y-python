@@ -20,6 +20,9 @@ from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from grpc import ssl_channel_credentials
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env. (automatic on glitch; this is needed locally)
 
 FlaskInstrumentor().instrument()
 
