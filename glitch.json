@@ -12,7 +12,7 @@
     },
     "restart": {
       "include": [
-        "\\.py$",
+        "\\.py$"
       ]
     },
     "throttle": 1000
