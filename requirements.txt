@@ -1,10 +1,10 @@
 Flask
 Requests==2.26.0
 six==1.15.0
-opentelemetry-api==1.4.1
-opentelemetry-sdk==1.4.1
-opentelemetry-exporter-otlp-proto-grpc==1.4.1
-opentelemetry-instrumentation-flask==0.23b2
-opentelemetry-instrumentation-requests==0.23b2
-opentelemetry-instrumentation==0.23b2
+opentelemetry-api==1.7.1
+opentelemetry-sdk==1.7.1
+opentelemetry-exporter-otlp-proto-grpc==1.7.1
+opentelemetry-instrumentation-flask==0.26b1
+opentelemetry-instrumentation-requests==0.26b1
+opentelemetry-instrumentation==0.26b1
 python-dotenv

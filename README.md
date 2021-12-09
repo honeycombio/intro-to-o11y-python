@@ -24,6 +24,8 @@ pip3 install --user -r requirements.txt
 PYTHONUNBUFFERED=true python3 server.py
 ```
 
+Hit the app at http://localhost:5000
+
 once that works, stop the app and configure it to send traces.
 
 #### Configure the Agent
@@ -47,6 +49,10 @@ You can choose any Service Name you want.
 #### See the results
 
 Run the app. 
+
+`python3 server.py`
+
+Hit it at http://localhost:5000
 
 Activate the sequence of numbers.
 Go to [Honeycomb](https://ui.honeycomb.io) and choose the Dataset you configured.
