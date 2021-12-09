@@ -32,14 +32,18 @@ resource = Resource(attributes={
 })
 trace.set_tracer_provider(TracerProvider(resource=resource))
 
+apikey = os.environ.get("HONEYCOMB_API_KEY")
+dataset = os.getenv("HONEYCOMB_DATASET", "otel-python")
+print("Sending traces to Honeycomb with apikey <" + apikey + "> to dataset " + dataset)
+
 # Send the traces to Honeycomb
 hnyExporter = OTLPSpanExporter(
     endpoint="api.honeycomb.io:443",
     insecure=False,
     credentials=ssl_channel_credentials(),
     headers=(
-        ("x-honeycomb-team", os.environ.get("HONEYCOMB_API_KEY")),
-        ("x-honeycomb-dataset", os.getenv("HONEYCOMB_DATASET", "otel-python"))
+        ("x-honeycomb-team", apikey),
+        ("x-honeycomb-dataset", dataset)
     )
 )
 trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(hnyExporter))
