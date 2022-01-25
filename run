@@ -1,4 +1,3 @@
-pip3 install --user -r requirements.txt
 export PYTHONUNBUFFERED=true # this says, "print output to the terminal immediately."
 export FLASK_ENV=development
 
