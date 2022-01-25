@@ -15,7 +15,7 @@ Alternative: [remix this app on Glitch](https://glitch.com/edit/#!/intro-to-o11y
 
 Alternative: Clone and run locally.
  If you use [VSCode devcontainers](https://code.visualstudio.com/docs/remote/containers-tutorial),
-then reopen in a container. Otherwise, have python3 and pip installed.
+then reopen in a container. Otherwise, have python3 and pip installed; and run `pip3 install -r requirements.txt`.
 
 ### Start the app
 
