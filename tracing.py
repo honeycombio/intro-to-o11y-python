@@ -32,7 +32,7 @@ resource = Resource(attributes={
 })
 trace.set_tracer_provider(TracerProvider(resource=resource))
 
-apikey = os.environ.get("HONEYCOMB_API_KEY")
+apikey = os.environ.get("HONEYCOMB_API_KEY", "missing API key")
 dataset = os.getenv("HONEYCOMB_DATASET", "otel-python")
 print("Sending traces to Honeycomb with apikey <" + apikey + "> to dataset " + dataset)
 
