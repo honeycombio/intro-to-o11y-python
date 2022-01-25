@@ -13,27 +13,27 @@ Recommended:
 
 Alternative: [remix this app on Glitch](https://glitch.com/edit/#!/intro-to-o11y-python).
 
-Or, if you prefer to work on your own computer...
+Alternative: Clone and run locally.
+ If you use [VSCode devcontainers](https://code.visualstudio.com/docs/remote/containers-tutorial),
+then reopen in a container. Otherwise, have python3 and pip installed.
 
-### Running locally
+### Start the app
 
-Clone this repository.
+`./run`
 
-If you use [VSCode devcontainers](https://code.visualstudio.com/docs/remote/containers-tutorial),
-then reopen in a container. Otherwise, have python 3 and pip installed.
-
-```shell
-pip3 install --user -r requirements.txt
-PYTHONUNBUFFERED=true
-
-python3 server.py
-```
+### See the app
 
 Hit the app at http://localhost:5000
 
-once that works, stop the app and configure it to send traces.
+Activate the sequence of numbers by pushing **Go**. After you see numbers, push **Stop**. Try this a few times.
 
-#### Configure the Agent
+Once that works, stop the app and configure it to send traces.
+
+### Stop the app
+
+Press `Ctrl-C` in the terminal where the app is running.
+
+## Configure telemetry to connect to Honeycomb
 
 Tell OpenTelemetry to send events to Honeycomb.
 In `.env` in glitch or your run configuration in your IDE, add these
@@ -41,7 +41,7 @@ environment variables:
 
 ```sh
 HONEYCOMB_API_KEY=replace-this-with-a-real-api-key
-HONEYCOMB_DATASET=otel-python
+HONEYCOMB_DATASET=hello-observability
 ```
 
 Get a Honeycomb API Key from your Team Settings in [Honeycomb](https://ui.honeycomb.io).
