@@ -25,6 +25,7 @@ then reopen in a container. Otherwise, have python 3 and pip installed.
 ```shell
 pip3 install --user -r requirements.txt
 PYTHONUNBUFFERED=true
+
 python3 server.py
 ```
 

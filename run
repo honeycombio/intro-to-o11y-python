@@ -1,3 +1,4 @@
 pip3 install --user -r requirements.txt
+PYTHONUNBUFFERED=true # this says, "print output to the terminal immediately."
 
 python3 server.py
