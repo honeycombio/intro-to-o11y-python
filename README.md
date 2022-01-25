@@ -134,3 +134,11 @@ RequestsInstrumentor().instrument(tracer_provider=trace.get_tracer_provider())
 
 Also notice the libraries imported in `requirements.txt`. 
 For details, [OpenTelemetry docs are here](https://opentelemetry-python.readthedocs.io/en/stable/)
+
+# Updating this repository
+
+Compare the versions of the latest [OpenTelemetry release](https://github.com/open-telemetry/opentelemetry-python/releases) with the ones in requirements.txt.
+
+Update requirements.txt to match.
+
+`pip3 install --user -r requirements.txt`
