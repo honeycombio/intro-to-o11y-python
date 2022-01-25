@@ -8,7 +8,10 @@ Spoiler: this microservice implements the <a href="https://en.wikipedia.org/wiki
 
 ## What to do
 
-Shortest path: [remix this app on Glitch](https://glitch.com/edit/#!/intro-to-o11y-python).
+Recommended:
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/honeycombio/intro-to-o11y-python)
+
+Alternative: [remix this app on Glitch](https://glitch.com/edit/#!/intro-to-o11y-python).
 
 Or, if you prefer to work on your own computer...
 
@@ -21,7 +24,8 @@ then reopen in a container. Otherwise, have python 3 and pip installed.
 
 ```shell
 pip3 install --user -r requirements.txt
-PYTHONUNBUFFERED=true python3 server.py
+PYTHONUNBUFFERED=true
+python3 server.py
 ```
 
 Hit the app at http://localhost:5000
