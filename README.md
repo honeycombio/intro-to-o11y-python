@@ -37,23 +37,27 @@ Press `Ctrl-C` in the terminal where the app is running.
 
 We need to set a few environment variables.
 
-
-
-Tell OpenTelemetry to send events to Honeycomb.
-In `.env` in glitch or your run configuration in your IDE, add these
-environment variables:
-
-```sh
-HONEYCOMB_API_KEY=replace-this-with-a-real-api-key
-HONEYCOMB_DATASET=hello-observability
-```
-
 Get a Honeycomb API Key from your Team Settings in [Honeycomb](https://ui.honeycomb.io).
 (find this by clicking on your profile in the lower-left corner.)
 
-You can name the Honeycomb Dataset anything you want.
+Recommended: set up a `.env` file, and the app will read it.
 
-You can choose any Service Name you want.
+Copy the example: `cp .env.example .env`
+
+Now, edit `.env` and put your own API key where it belongs. This file will be ignored by git,
+so you won't accidentally commit your API key.
+
+Alternative: at the terminal, before running the app, set these:
+
+```sh
+export HONEYCOMB_API_KEY=replace-this-with-a-real-api-key
+export HONEYCOMB_DATASET=hello-observability # can be any string
+```
+
+(in case you missed it:) Get a Honeycomb API Key from your Team Settings in [Honeycomb](https://ui.honeycomb.io).
+Find this by clicking on your profile in the lower-left corner.
+
+You can name the Honeycomb Dataset anything you want.
 
 #### See the results
 
@@ -64,20 +68,18 @@ Run the app.
 Hit it at http://localhost:5000
 
 Activate the sequence of numbers.
+
+Now the cool part -- 
 Go to [Honeycomb](https://ui.honeycomb.io) and choose the Dataset you configured.
 
 NOTE: You can see the full URL for the request in `http.target` 
 (the examples in other languages often use `http.url`)
 
-How many traces are there?
+See some data in the graphs! Scroll down and click on some Recent Traces.
 
-How many spans are in the traces?
+In Part 2 of the workshop, we'll look at the data.
 
-Why are there so many??
-
-Which trace has the most, and why is it different?
-
-## 2. Customize a span
+## Part 3 of the workshop: Customize a span
 
 Let's make it easier to see what the "index" query parameter is.
 
@@ -96,7 +98,7 @@ Restart the app, make the sequence go, and find that field on the new spans.
 
 Can you make the trace waterfall view show the index? What pattern does it show?
 
-## 3. Create a custom span
+## Advanced: Create a custom span
 
 Make the calculation into its own span, to see how much of the time spent on
 this service is the meat: adding the fibonacci numbers.
