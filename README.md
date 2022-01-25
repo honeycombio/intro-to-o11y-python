@@ -35,6 +35,10 @@ Press `Ctrl-C` in the terminal where the app is running.
 
 ## Configure telemetry to connect to Honeycomb
 
+We need to set a few environment variables.
+
+
+
 Tell OpenTelemetry to send events to Honeycomb.
 In `.env` in glitch or your run configuration in your IDE, add these
 environment variables:
