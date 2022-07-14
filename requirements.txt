@@ -8,3 +8,4 @@ opentelemetry-instrumentation-flask==0.29b0
 opentelemetry-instrumentation-requests==0.29b0
 opentelemetry-instrumentation==0.29b0
 python-dotenv
+protobuf==3.20.*
