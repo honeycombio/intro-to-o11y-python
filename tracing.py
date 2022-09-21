@@ -28,7 +28,7 @@ load_dotenv()  # take environment variables from .env. (automatic on glitch; thi
 
 # Set up tracing
 resource = Resource(attributes={
-    "service_name": os.getenv("SERVICE_NAME", "fib-microsvc")
+    "service.name": os.getenv("SERVICE_NAME", "fib-microsvc")
 })
 trace.set_tracer_provider(TracerProvider(resource=resource))
 
