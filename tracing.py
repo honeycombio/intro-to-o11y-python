@@ -20,6 +20,7 @@ from opentelemetry.trace.propagation.tracecontext import (
     TraceContextTextMapPropagator,
 )
 from opentelemetry.propagate import set_global_textmap
+from opentelemetry.semconv.resource import ResourceAttributes
 
 from grpc import ssl_channel_credentials
 from dotenv import load_dotenv
@@ -28,7 +29,7 @@ load_dotenv()  # take environment variables from .env. (automatic on glitch; thi
 
 # Set up tracing
 resource = Resource(attributes={
-    "service.name": os.getenv("SERVICE_NAME", "fib-microsvc")
+    ResourceAttributes.SERVICE_NAME: os.getenv("SERVICE_NAME", "fib-microsvc")
 })
 trace.set_tracer_provider(TracerProvider(resource=resource))
 
