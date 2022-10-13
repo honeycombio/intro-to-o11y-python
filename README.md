@@ -27,7 +27,7 @@ If you are running the app in Gitpod, navigate to the "Ports" tab and click the 
 
 ![Gitpod open address](img/gitpod-ports.png "Gitpod open address")
 
-Or if you are running locally, access the app at http://localhost:5000
+If you are running locally, access the app at http://localhost:5000.
 
 Then activate the sequence of numbers by pushing the **Go** button. After you see numbers, push **Stop**. Try this a few times.
 
