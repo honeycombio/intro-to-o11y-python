@@ -13,7 +13,7 @@ Recommended:
 
 Gitpod is a free cloud environment where you can run the example without needing to clone the code or install Python on your machine.
 
-Or you can clone this repo and run the app locally.
+You can also clone this repo and run the app locally.
  If you use [VSCode devcontainers](https://code.visualstudio.com/docs/remote/containers-tutorial),
 then reopen in a container. Otherwise, have python3 and pip installed; and run `pip3 install -r requirements.txt`.
 
