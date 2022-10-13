@@ -44,7 +44,7 @@ Press `Ctrl-C` in the terminal where the app is running.
 We need to set a few environment variables to configure OpenTelemetry to send data to Honeycomb.
 
 Get a Honeycomb API Key from your Team Settings in [Honeycomb](https://ui.honeycomb.io).
-(find this by clicking on your profile in the lower-left corner.)
+(find this by selecting your profile in the lower-left corner of the Honeycomb user interface.)
 
 Recommended: set up a `.env` file, and the app will read it.
 
