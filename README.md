@@ -75,7 +75,9 @@ If you are running the app in Gitpod, navigate to the "Ports" tab and click the 
 
 If you are running locally, access the app at http://localhost:5000
 
-Activate the sequence of numbers by pushing **Go**. After you see numbers, push **Stop**. Try this a few times.
+Activate the sequence of numbers by selecting the **Go** button.
+After the app displays numbers, select **Stop**.
+Try this a few times.
 
 Now the cool part -- 
 Go to [Honeycomb](https://ui.honeycomb.io) and choose the Dataset you configured.
