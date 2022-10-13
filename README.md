@@ -29,7 +29,9 @@ If you are running the app in Gitpod, navigate to the "Ports" tab and click the 
 
 If you are running locally, access the app at http://localhost:5000.
 
-Then activate the sequence of numbers by pushing the **Go** button. After you see numbers, push **Stop**. Try this a few times.
+Activate the sequence of numbers by selecting the **Go** button.
+After the app displays numbers, select **Stop**.
+Try this a few times.
 
 Once that works, stop the app and configure it to send traces.
 
