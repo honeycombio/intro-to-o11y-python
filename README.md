@@ -50,8 +50,8 @@ Recommended: set up a `.env` file, and the app will read it.
 
 Copy the example env: `cp .env.example .env`
 
-Now, edit `.env` and put your own Honeycomb API key where it belongs. This file will be ignored by git,
-so you won't accidentally commit your API key.
+Edit `.env` and replace the placeholder value for HONEYCOMB_API_KEY with your own Honeycomb API key. 
+This file will be ignored by git, so you will not accidentally commit your API key.
 
 Alternative: at the terminal, before running the app, set these:
 
