@@ -1,6 +1,6 @@
 # Intro to Observability: OpenTelemetry in Python
 
-This application is here for you to try out tracing.
+This application is here for you to try out tracing in Honeycomb.
 It consists of a microservice that calls itself, so you can simulate
 a whole microservice ecosystem with just one service!
 
@@ -11,21 +11,25 @@ Spoiler: this microservice implements the <a href="https://en.wikipedia.org/wiki
 Recommended:
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/honeycombio/intro-to-o11y-python)
 
-Alternative: [remix this app on Glitch](https://glitch.com/edit/#!/intro-to-o11y-python).
+Gitpod is a free cloud environment where you can run the example without needing to clone the code or install Python on your machine.
 
-Alternative: Clone and run locally.
+Or you can clone this repo and run the app locally.
  If you use [VSCode devcontainers](https://code.visualstudio.com/docs/remote/containers-tutorial),
 then reopen in a container. Otherwise, have python3 and pip installed; and run `pip3 install -r requirements.txt`.
 
 ### Start the app
 
-`./run`
+Start the app by executing `./run` in the terminal.
 
 ### See the app
 
-Hit the app at http://localhost:5000
+If you are running the app in Gitpod, navigate to the "Ports" tab and click the address for port 5000 to open the app in a new tab:
 
-Activate the sequence of numbers by pushing **Go**. After you see numbers, push **Stop**. Try this a few times.
+![Gitpod open address](img/gitpod-ports.png "Gitpod open address")
+
+Or if you are running locally, access the app at http://localhost:5000
+
+Then activate the sequence of numbers by pushing the **Go** button. After you see numbers, push **Stop**. Try this a few times.
 
 Once that works, stop the app and configure it to send traces.
 
@@ -35,22 +39,22 @@ Press `Ctrl-C` in the terminal where the app is running.
 
 ## Configure telemetry to connect to Honeycomb
 
-We need to set a few environment variables.
+We need to set a few environment variables to configure OpenTelemetry to send data to Honeycomb.
 
 Get a Honeycomb API Key from your Team Settings in [Honeycomb](https://ui.honeycomb.io).
 (find this by clicking on your profile in the lower-left corner.)
 
 Recommended: set up a `.env` file, and the app will read it.
 
-Copy the example: `cp .env.example .env`
+Copy the example env: `cp .env.example .env`
 
-Now, edit `.env` and put your own API key where it belongs. This file will be ignored by git,
+Now, edit `.env` and put your own Honeycomb API key where it belongs. This file will be ignored by git,
 so you won't accidentally commit your API key.
 
 Alternative: at the terminal, before running the app, set these:
 
 ```sh
-export HONEYCOMB_API_KEY=replace-this-with-a-real-api-key
+export HONEYCOMB_API_KEY=<replace-this-with-your-Honeycomb-api-key>
 export HONEYCOMB_DATASET=hello-observability # can be any string
 ```
 
@@ -61,13 +65,15 @@ You can name the Honeycomb Dataset anything you want.
 
 #### See the results
 
-Run the app. 
+Start the app with `./run`
 
-`python3 server.py`
+If you are running the app in Gitpod, navigate to the "Ports" tab and click the address for port 5000 to open the app in a new tab:
 
-Hit it at http://localhost:5000
+![Gitpod open address](img/gitpod-ports.png "Gitpod open address")
 
-Activate the sequence of numbers.
+If you are running locally, access the app at http://localhost:5000
+
+Activate the sequence of numbers by pushing **Go**. After you see numbers, push **Stop**. Try this a few times.
 
 Now the cool part -- 
 Go to [Honeycomb](https://ui.honeycomb.io) and choose the Dataset you configured.
@@ -77,9 +83,7 @@ NOTE: You can see the full URL for the request in `http.target`
 
 See some data in the graphs! Scroll down and click on some Recent Traces.
 
-In Part 2 of the workshop, we'll look at the data.
-
-## Part 3 of the workshop: Customize a span
+## Part 2 of the workshop: Customize a span
 
 Let's make it easier to see what the "index" query parameter is.
 
