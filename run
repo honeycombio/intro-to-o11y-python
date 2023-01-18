@@ -1,3 +1,13 @@
+#!/bin/bash
+
+if [ ! -f ".env" ]
+then
+  echo "Creating .env -- update it with your API key!"
+  cp .env.example .env
+fi
+
+./install
+
 export PYTHONUNBUFFERED=true # this says, "print output to the terminal immediately."
 export FLASK_ENV=development
 
