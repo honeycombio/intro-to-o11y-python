@@ -6,22 +6,18 @@ from opentelemetry.instrumentation.requests import RequestsInstrumentor
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import (
-    SimpleSpanProcessor,
     BatchSpanProcessor,
-    ConsoleSpanExporter,
 )
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
     OTLPSpanExporter,
 )
-from opentelemetry.context.context import Context
 import typing
-from opentelemetry.propagate import set_global_textmap
 from opentelemetry.semconv.resource import ResourceAttributes
 
 from grpc import ssl_channel_credentials
 from dotenv import load_dotenv
 
-load_dotenv()  # take environment variables from .env. (automatic on glitch; this is needed locally)
+load_dotenv()  # take environment variables from .env
 
 # Set up tracing
 service_name = os.getenv("OTEL_SERVICE_NAME", "sequence-of-numbers")
