@@ -1,1 +1,6 @@
 pip3 install --user -r requirements.txt
+
+# Install OpenTelemetry agent.
+# Docs: https://docs.honeycomb.io/getting-data-in/opentelemetry/python-distro/
+python -m pip install honeycomb-opentelemetry --pre
+opentelemetry-bootstrap --action=install
