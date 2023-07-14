@@ -2,16 +2,9 @@ import sys
 import requests
 from flask import render_template
 from flask import Flask, request
-from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry import trace
 
-import tracing
-
 app = Flask(__name__)
-
-# auto-instrument incoming requests
-FlaskInstrumentor().instrument_app(app)
-
 
 @app.route("/")
 def root():
