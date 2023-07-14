@@ -13,4 +13,4 @@ export FLASK_ENV=development
 
 source .env
 
-python3 server.py
+opentelemetry-instrument python3 server.py
