@@ -6,7 +6,13 @@ then
   cp .env.example .env
 fi
 
-./install
+if ! cmp -s "install" ".installed"; then
+  echo "Installing stuff..."
+  ./install
+  cp install .installed
+else
+  echo "Looks like the installation has been run already. Skipping"
+fi
 
 export PYTHONUNBUFFERED=true # this says, "print output to the terminal immediately."
 export FLASK_ENV=development
