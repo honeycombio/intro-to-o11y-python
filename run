@@ -11,4 +11,6 @@ fi
 export PYTHONUNBUFFERED=true # this says, "print output to the terminal immediately."
 export FLASK_ENV=development
 
+source .env
+
 python3 server.py
