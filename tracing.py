@@ -11,7 +11,6 @@ from opentelemetry.sdk.trace.export import (
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
     OTLPSpanExporter,
 )
-import typing
 from opentelemetry.semconv.resource import ResourceAttributes
 
 from grpc import ssl_channel_credentials
