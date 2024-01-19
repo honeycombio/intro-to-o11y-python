@@ -7,6 +7,8 @@ from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import (
     BatchSpanProcessor,
+    SimpleSpanProcessor,
+    ConsoleSpanExporter
 )
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
     OTLPSpanExporter,
@@ -25,22 +27,15 @@ resource = Resource(attributes={
 })
 trace.set_tracer_provider(TracerProvider(resource=resource))
 
-apikey = os.environ.get("HONEYCOMB_API_KEY", "missing API key")
+apikey = os.environ.get("OTEL_EXPORTER_OTLP_HEADERS", "missing API key")
 print("Sending traces to Honeycomb with apikey <" + apikey + "> to service " + service_name)
 
 # Send the traces to Honeycomb
-hnyExporter = OTLPSpanExporter(
-    endpoint="api.honeycomb.io:443",
-    insecure=False,
-    credentials=ssl_channel_credentials(),
-    headers=(
-        ("x-honeycomb-team", apikey),
-    )
-)
+hnyExporter = OTLPSpanExporter()
 trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(hnyExporter))
 
 # To see spans in the log, uncomment this:
-# trace.get_tracer_provider().add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
+trace.get_tracer_provider().add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
 
 
 # auto-instrument outgoing requests
