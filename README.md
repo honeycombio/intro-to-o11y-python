@@ -1,4 +1,8 @@
-# Intro to Observability: OpenTelemetry in Python
+# Intro to Observability: OpenTelemetry in Python - DEPRECATED
+
+DEPRECATED - Please prefer the Meminator application as an example: https://github.com/honeycombio/meminator-workshop/
+
+## Former Description
 
 This application is here for you to try out tracing in Honeycomb.
 It consists of a microservice that calls itself, so you can simulate
